@@ -1,0 +1,186 @@
+
+
+import {
+  S3Client,
+  PutObjectCommand,
+  DeleteObjectCommand,
+  GetObjectCommand,
+  ListObjectsV2Command,
+  HeadObjectCommand,
+} from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { Readable } from "stream";
+import * as dotenv from "dotenv";
+import { getSignedUrlExpirySeconds, StorageService } from "../storageService.js";
+import { ENV } from "../../../constants/env.js";
+
+export class AwsStorageService extends StorageService {
+  private s3Client: S3Client;
+  private bucket: string;
+
+  constructor() {
+    super();
+
+    const region = ENV.S3_AWS_REGION;
+    const accessKeyId = ENV.S3_ACCESS_KEY_ID;
+    const secretAccessKey = ENV.S3_SECRET_ACCESS_KEY;
+    const bucketName = ENV.S3_BUCKET_NAME;
+
+    if (!region || !accessKeyId || !secretAccessKey || !bucketName) {
+      throw new Error("Missing required AWS S3 configuration");
+    }
+
+    const endpoint =
+      ENV.S3_ENDPOINT || `https://s3.${region}.amazonaws.com`;
+
+    this.s3Client = new S3Client({
+      region,
+      credentials: {
+        accessKeyId,
+        secretAccessKey,
+      },
+      endpoint,
+      forcePathStyle: true,
+    });
+
+    this.bucket = bucketName;
+
+
+    console.log("[AWS S3] Initialized with:", {
+      region,
+      bucket: bucketName,
+      endpoint,
+      hasCredentials: !!accessKeyId && !!secretAccessKey,
+    });
+  }
+
+  async getObjectURL(key: string): Promise<string> {
+    try {
+      const expiresIn = getSignedUrlExpirySeconds();
+      const command = new GetObjectCommand({
+        Bucket: this.bucket,
+        Key: key,
+      });
+      return await getSignedUrl(this.s3Client, command, {
+        expiresIn,
+        signableHeaders: new Set(["host"]),
+      });
+    } catch (error) {
+      console.error("[AWS S3] Error generating get URL:", error);
+      throw error;
+    }
+  }
+
+  async getObjectMetadata(key: string): Promise<{ size: number; contentType: string | null }> {
+    const result = await this.s3Client.send(
+      new HeadObjectCommand({ Bucket: this.bucket, Key: key }),
+    );
+    if (typeof result.ContentLength !== "number") {
+      throw new Error("Uploaded resume is missing its content length");
+    }
+    return { size: result.ContentLength, contentType: result.ContentType ?? null };
+  }
+
+  async getObjectStream(key: string): Promise<Readable> {
+    try {
+      console.log("[AWS S3] Getting object stream for:", {
+        bucket: this.bucket,
+        key,
+      });
+
+      const command = new GetObjectCommand({
+        Bucket: this.bucket,
+        Key: key,
+      });
+
+      const response = await this.s3Client.send(command);
+
+      if (!response.Body) {
+        throw new Error("No body returned from S3 object");
+      }
+
+
+      const body = response.Body;
+      if (body instanceof Readable) {
+        return body;
+      } else {
+
+        return Readable.fromWeb(body as any);
+      }
+    } catch (error) {
+      console.error("[AWS S3] Error getting object stream:", error);
+      throw error;
+    }
+  }
+
+  async putObject(
+    key: string,
+    file: Buffer | Uint8Array | Blob | string,
+    contentType = "application/pdf"
+  ): Promise<{ message: string }> {
+    try {
+      const command = new PutObjectCommand({
+        Bucket: this.bucket,
+        Key: key,
+        Body: file,
+        ContentType: contentType,
+      });
+      await this.s3Client.send(command);
+      return { message: "File uploaded successfully" };
+    } catch (error) {
+      console.error("[AWS S3] Error uploading file:", error);
+      throw error;
+    }
+  }
+
+  async deleteObject(key: string, bucketName = this.bucket): Promise<void> {
+    await this.s3Client.send(new DeleteObjectCommand({ Bucket: bucketName, Key: key }));
+  }
+
+  async listObjects(prefix: string): Promise<any[]> {
+    try {
+      const command = new ListObjectsV2Command({
+        Bucket: this.bucket,
+        Prefix: prefix,
+      });
+      const response = await this.s3Client.send(command);
+      return response.Contents || [];
+    } catch (error) {
+      console.error("[AWS S3] Error listing objects:", error);
+      throw error;
+    }
+  }
+
+  async getUploadURL(
+    key: string,
+    contentType: string = "application/pdf"
+  ): Promise<string> {
+    try {
+      console.log("[AWS S3] Generating upload URL for:", {
+        bucket: this.bucket,
+        key,
+        contentType,
+        region: ENV.S3_AWS_REGION,
+      });
+
+      const command = new PutObjectCommand({
+        Bucket: this.bucket,
+        Key: key,
+        ContentType: contentType,
+      });
+
+      const expiresIn = getSignedUrlExpirySeconds();
+
+      const url = await getSignedUrl(this.s3Client, command, {
+        expiresIn,
+        signableHeaders: new Set(["host"]),
+      });
+
+      console.log("[AWS S3] Generated upload URL successfully");
+      return url;
+    } catch (error) {
+      console.error("[AWS S3] Error generating upload URL:", error);
+      throw error;
+    }
+  }
+}

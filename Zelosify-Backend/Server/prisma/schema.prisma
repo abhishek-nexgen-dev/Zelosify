@@ -1,0 +1,189 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+}
+
+model User {
+  id              String       @id @default(uuid())
+  username        String?      @unique
+  email           String
+  firstName       String?
+  lastName        String?
+  phoneNumber     String?
+  department      String?
+  role            Role
+  permissions     String[]     @default([])
+  tenantId        String?
+  externalId      String?      @unique
+  totpSecret      String?
+  totpVerifiedAt  DateTime?
+  profileComplete Boolean      @default(false)
+  provider        AuthProvider @default(KEYCLOAK)
+  creator         String?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+
+  accessToken     String?
+  refreshToken    String?
+
+
+  tenant          Tenants?     @relation(fields: [tenantId], references: [tenantId])
+
+  @@unique([email, provider])
+  @@index([tenantId])
+  @@index([tenantId, role, createdAt(sort: Desc)])
+}
+
+model Tenants {
+  tenantId            String    @id @default(uuid())
+  companyName         String    @default("DemoTenant")
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  users               User[]
+  openings            Opening[]
+}
+
+model Opening {
+  id                     String         @id @default(uuid())
+  tenantId               String
+  title                  String
+  description            String?
+  location               String?
+  contractType           String?
+  hiringManagerId        String?
+  recruiterId            String?
+  experienceMin          Int
+  experienceMax          Int?
+  requiredSkills         String[]       @default([])
+  postedDate             DateTime       @default(now())
+  expectedCompletionDate DateTime?
+  actionDate             DateTime?
+  status                 OpeningStatus  @default(OPEN)
+  tenant                 Tenants        @relation(fields: [tenantId], references: [tenantId])
+  hiringProfiles         hiringProfile[]
+
+  @@index([tenantId])
+  @@index([tenantId, recruiterId])
+  @@index([status, postedDate(sort: Desc)])
+  @@index([tenantId, postedDate(sort: Desc)])
+  @@index([tenantId, status, postedDate(sort: Desc)])
+  @@index([tenantId, hiringManagerId, postedDate(sort: Desc)])
+}
+
+model hiringProfile {
+  id                       Int            @id @default(autoincrement())
+  openingId                String
+  s3Key                    String         @unique
+  uploadedBy               String
+  submittedAt              DateTime       @default(now())
+  status                   ProfileStatus  @default(SUBMITTED)
+  shortlistedBy            String?
+  shortlistedAt            DateTime?
+  rejectedBy               String?
+  rejectedAt               DateTime?
+
+
+  recommended              Boolean?
+  recommendationStatus    RecommendationStatus @default(PENDING)
+  recommendationRunId     String?
+  recommendationStartedAt DateTime?
+  recommendationAttempts  Int @default(0)
+  recommendationMetadata  Json?
+  recommendationScore      Float?
+  recommendationReason     String?
+  recommendationLatencyMs  Int?
+  recommendationVersion    String?
+  recommendationConfidence Float?
+  atsScore                 Int?
+  atsBreakdown             Json?
+  resumeAnalysis           Json?
+  recommendedAt            DateTime?
+  isDeleted                Boolean        @default(false)
+
+  opening                  Opening        @relation(fields: [openingId], references: [id])
+
+  @@index([openingId, isDeleted, status])
+  @@index([openingId, isDeleted, uploadedBy, submittedAt(sort: Desc)])
+  @@index([uploadedBy, isDeleted, submittedAt(sort: Desc)])
+  @@index([recommended])
+  @@index([recommendationStatus, recommendationStartedAt])
+}
+
+model storageDeletion {
+  id              String   @id @default(uuid())
+  objectKey       String   @unique
+  storageProvider String
+  bucketName      String
+  attemptCount    Int      @default(0)
+  nextAttemptAt   DateTime @default(now())
+  lastErrorCode   String?
+  createdAt       DateTime @default(now())
+
+  @@index([nextAttemptAt])
+}
+
+model decisionEmailOutbox {
+  id             String                   @id @default(uuid())
+  applicationId  Int
+  decision       ProfileStatus
+  status         DecisionEmailStatus      @default(PENDING)
+  attemptCount   Int                      @default(0)
+  nextAttemptAt  DateTime                 @default(now())
+  lockedUntil    DateTime?
+  sentAt         DateTime?
+  lastErrorCode  String?
+  createdAt      DateTime                 @default(now())
+  updatedAt      DateTime                 @updatedAt
+
+  @@unique([applicationId, decision])
+  @@index([status, nextAttemptAt])
+  @@index([lockedUntil])
+}
+
+enum OpeningStatus {
+  OPEN
+  CLOSED
+  ON_HOLD
+}
+
+enum ProfileStatus {
+  SUBMITTED
+  SHORTLISTED
+  REJECTED
+}
+
+enum RecommendationStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+enum DecisionEmailStatus {
+  PENDING
+  PROCESSING
+  SENT
+  SKIPPED
+  FAILED
+}
+
+enum AuthProvider {
+  KEYCLOAK
+  GOOGLE
+  MICROSOFT
+}
+
+enum Role {
+  ADMIN
+  RECRUITER
+  HIRING_MANAGER
+  CANDIDATE
+  IT_VENDOR
+}

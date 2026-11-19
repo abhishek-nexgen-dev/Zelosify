@@ -1,0 +1,2 @@
+ALTER TABLE "Opening"
+ADD COLUMN "requiredSkills" TEXT[] NOT NULL DEFAULT ARRAY[]::TEXT[];

@@ -1,0 +1,1 @@
+ALTER TABLE "Opening" ALTER COLUMN "hiringManagerId" DROP NOT NULL;

@@ -1,0 +1,88 @@
+{
+  "id": "Zelosify",
+  "realm": "Zelosify",
+  "displayName": "Zelosify",
+  "enabled": true,
+  "sslRequired": "none",
+  "registrationAllowed": true,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": true,
+  "editUsernameAllowed": false,
+  "roles": {
+    "realm": [
+      {
+        "id": "b3e94a82-1234-4567-89ab-cdef01234501",
+        "name": "ADMIN",
+        "description": "Administrator role"
+      },
+      {
+        "id": "b3e94a82-1234-4567-89ab-cdef01234502",
+        "name": "RECRUITER",
+        "description": "Recruiter role"
+      },
+      {
+        "id": "b3e94a82-1234-4567-89ab-cdef01234503",
+        "name": "HIRING_MANAGER",
+        "description": "Hiring Manager role"
+      },
+      {
+        "id": "b3e94a82-1234-4567-89ab-cdef01234504",
+        "name": "CANDIDATE",
+        "description": "Candidate role"
+      },
+      {
+        "id": "b3e94a82-1234-4567-89ab-cdef01234505",
+        "name": "IT_VENDOR",
+        "description": "IT Vendor role"
+      }
+    ]
+  },
+  "clients": [
+    {
+      "id": "a1b2c3d4-e5f6-4a5b-8c7d-9e0f1a2b3c4d",
+      "clientId": "dynamic-client",
+      "name": "Dynamic Client",
+      "description": "Client for Zelosify recruitment platform",
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "GrOTyOhQtLsWRHsjLOhqmC2UbQacynD42dV5U8OL9RGWA4RzydS2BePVpuLOosf6f44yiUE9so75h96UwrCzOO",
+      "redirectUris": [
+        "http://localhost:5173/*",
+        "http://localhost:5000/*"
+      ],
+      "webOrigins": [
+        "http://localhost:5173",
+        "http://localhost:5000",
+        "+"
+      ],
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
+      "protocol": "openid-connect"
+    }
+  ],
+  "users": [
+    {
+      "id": "82801ebb-4ad0-41f1-9630-ce5a1cbe7b50",
+      "username": "admin",
+      "email": "admin@zelosify.com",
+      "firstName": "System",
+      "lastName": "Admin",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Admin@1234",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "ADMIN"
+      ]
+    }
+  ]
+}
