@@ -32,9 +32,7 @@ const bandStyle = (label) =>
 
 export default function ApplicantsPage({ jobId }) {
   const { user } = useAuth();
-  const canRecruitingRole = ["ADMIN", "RECRUITER", "HIRING_MANAGER"].includes(
-    user?.role
-  );
+  const canRecruitingRole = ["ADMIN", "RECRUITER", "HIRING_MANAGER"].includes(user?.role);
   const canReviewCandidateProfiles = user?.role !== "IT_VENDOR" && canRecruitingRole;
   const canViewCandidates = canReviewCandidateProfiles && hasPermission(user, "CANDIDATES_VIEW");
   const canShortlist = canReviewCandidateProfiles && hasPermission(user, "CANDIDATES_SHORTLIST");

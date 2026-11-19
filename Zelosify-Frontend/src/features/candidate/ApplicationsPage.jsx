@@ -19,7 +19,11 @@ import {
 import { toast } from "sonner";
 import MarkdownContent from "@/components/content/MarkdownContent";
 import useAuth from "@/hooks/Auth/useAuth";
-import { getApplications, replaceApplicationResume, retryApplicationAnalysis } from "@/features/candidate/api";
+import {
+  getApplications,
+  replaceApplicationResume,
+  retryApplicationAnalysis,
+} from "@/features/candidate/api";
 
 const screeningLabel = (status) =>
   ({
@@ -127,11 +131,13 @@ export default function ApplicationsPage() {
     try {
       await retryApplicationAnalysis(applicationId);
       toast.success("Resume analysis queued. Your resume does not need to be uploaded again.");
-      setApplications((current) => current.map((application) =>
-        application.applicationId === applicationId
-          ? { ...application, screeningStatus: "PROCESSING" }
-          : application
-      ));
+      setApplications((current) =>
+        current.map((application) =>
+          application.applicationId === applicationId
+            ? { ...application, screeningStatus: "PROCESSING" }
+            : application
+        )
+      );
     } catch (error) {
       toast.error(error?.response?.data?.message || "Could not retry resume analysis.");
     } finally {
@@ -365,7 +371,8 @@ export default function ApplicationsPage() {
                             Resume name could not be verified
                           </p>
                           <p className="mt-1 text-xs leading-5 text-rose-100/80">
-                            Check that your profile name matches the name printed on your resume, then replace the file to request a new analysis.
+                            Check that your profile name matches the name printed on your resume,
+                            then replace the file to request a new analysis.
                           </p>
                         </div>
                       )}
@@ -387,9 +394,7 @@ export default function ApplicationsPage() {
                             role="alert"
                             className="mt-3 rounded-xl border border-amber-300/10 bg-amber-300/[0.04] p-3"
                           >
-                            <p className="text-xs font-semibold text-amber-100">
-                              Analysis issue
-                            </p>
+                            <p className="text-xs font-semibold text-amber-100">Analysis issue</p>
                             <p className="mt-1 text-xs leading-5 text-amber-100/80">
                               {application.aiScreening.reason}
                             </p>
@@ -421,7 +426,10 @@ export default function ApplicationsPage() {
                         disabled={retryingId !== null}
                         className="inline-flex min-h-10 items-center justify-center gap-2 rounded-xl border border-amber-300/20 bg-amber-300/[0.06] px-3.5 text-sm font-semibold text-amber-100 transition hover:border-amber-200/40 hover:bg-amber-300/[0.12] disabled:cursor-wait disabled:opacity-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200"
                       >
-                        <RotateCw className={`h-4 w-4 ${retryingId === application.applicationId ? "animate-spin" : ""}`} aria-hidden="true" />
+                        <RotateCw
+                          className={`h-4 w-4 ${retryingId === application.applicationId ? "animate-spin" : ""}`}
+                          aria-hidden="true"
+                        />
                         {retryingId === application.applicationId ? "Queuing…" : "Retry analysis"}
                       </button>
                     )}

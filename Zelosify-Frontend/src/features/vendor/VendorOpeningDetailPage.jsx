@@ -262,167 +262,176 @@ export default function VendorOpeningDetailPage({ openingId }) {
             ) : null}
           </section>
 
-          {canSubmitProfiles ? <section className="rounded-xl border border-white/[0.08] bg-[#0b0b0b] p-5 shadow-sm dark:border-slate-800 dark:bg-[#0b0b0b]/40 sm:p-6">
-            <h2 className="text-lg font-semibold text-slate-100 dark:text-slate-100">
-              Upload candidates
-            </h2>
-            <p className="mt-1 text-sm text-slate-300 dark:text-slate-400">
-              Upload one or more PDF or PPTX resumes. Files are securely uploaded and submitted for
-              AI evaluation.
-            </p>
-
-            <div
-              {...getRootProps()}
-              className={`mt-4 flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed p-8 text-center transition-colors focus:outline-none focus:ring-2 focus:ring-lime-500 ${
-                isDragActive
-                  ? "border-lime-500 bg-[#101318] dark:bg-lime-950/20"
-                  : "border-slate-700 hover:border-slate-400 dark:border-slate-700"
-              }`}
-              aria-label="Upload resume files"
-            >
-              <input {...getInputProps()} />
-              <p className="text-sm font-medium text-slate-100 dark:text-slate-100">
-                Drag & drop PDF/PPTX files here, or click to browse
-              </p>
-              <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                Supported formats: PDF, PPTX (multiple files allowed)
-              </p>
-            </div>
-
-            {selectedFiles.length > 0 ? (
-              <div className="mt-4 space-y-2" role="status" aria-live="polite">
-                <h3 className="text-sm font-semibold text-slate-100 dark:text-slate-100">
-                  Selected files
-                </h3>
-                <ul className="divide-y divide-white/[0.08] rounded-lg border border-white/[0.08] dark:divide-slate-800 dark:border-slate-800">
-                  {selectedFiles.map((f) => (
-                    <li
-                      key={`${f.name}-${f.size}`}
-                      className="flex flex-col gap-2 p-3 sm:flex-row sm:items-center sm:justify-between"
-                    >
-                      <div className="min-w-0">
-                        <p className="truncate text-sm font-medium text-slate-100 dark:text-slate-100">
-                          {f.name}
-                        </p>
-                        <p className="text-xs text-slate-500 dark:text-slate-400">
-                          {f.type || "unknown type"} · {formatBytes(f.size)} ·{" "}
-                          {fileStatus[f.name] || "ready"}
-                        </p>
-                      </div>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        onClick={() => removeSelected(f.name, f.size)}
-                        disabled={uploadLoading}
-                      >
-                        Remove
-                      </Button>
-                    </li>
-                  ))}
-                </ul>
-                <div className="flex flex-wrap items-center gap-3 pt-2">
-                  <Button
-                    onClick={handleSubmit}
-                    disabled={
-                      uploadLoading || selectedFiles.length === 0 || opening?.status !== "OPEN"
-                    }
-                    className="bg-lime-300 hover:bg-lime-200 text-black"
-                  >
-                    {uploadLoading ? "Submitting..." : "Submit profiles"}
-                  </Button>
-                  {uploadError ? (
-                    <span className="text-sm text-red-600 dark:text-red-400">{uploadError}</span>
-                  ) : null}
-                </div>
-              </div>
-            ) : null}
-          </section> : null}
-
-          {canViewProfiles ? <section className="rounded-xl border border-white/[0.08] bg-[#0b0b0b] p-5 shadow-sm dark:border-slate-800 dark:bg-[#0b0b0b]/40 sm:p-6">
-            <div className="flex items-center justify-between gap-3">
+          {canSubmitProfiles ? (
+            <section className="rounded-xl border border-white/[0.08] bg-[#0b0b0b] p-5 shadow-sm dark:border-slate-800 dark:bg-[#0b0b0b]/40 sm:p-6">
               <h2 className="text-lg font-semibold text-slate-100 dark:text-slate-100">
-                My uploaded profiles
+                Upload candidates
               </h2>
-              <span className="text-sm text-slate-500 dark:text-slate-400">
-                {profileRows.length} file(s)
-              </span>
-            </div>
-            {profileRows.length === 0 ? (
-              <div className="mt-4 rounded-lg border border-dashed border-slate-700 p-8 text-center dark:border-slate-700">
+              <p className="mt-1 text-sm text-slate-300 dark:text-slate-400">
+                Upload one or more PDF or PPTX resumes. Files are securely uploaded and submitted
+                for AI evaluation.
+              </p>
+
+              <div
+                {...getRootProps()}
+                className={`mt-4 flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed p-8 text-center transition-colors focus:outline-none focus:ring-2 focus:ring-lime-500 ${
+                  isDragActive
+                    ? "border-lime-500 bg-[#101318] dark:bg-lime-950/20"
+                    : "border-slate-700 hover:border-slate-400 dark:border-slate-700"
+                }`}
+                aria-label="Upload resume files"
+              >
+                <input {...getInputProps()} />
                 <p className="text-sm font-medium text-slate-100 dark:text-slate-100">
-                  No profiles uploaded yet
+                  Drag & drop PDF/PPTX files here, or click to browse
                 </p>
-                <p className="mt-1 text-sm text-slate-300 dark:text-slate-400">
-                  Upload and submit candidate resumes to get started.
+                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                  Supported formats: PDF, PPTX (multiple files allowed)
                 </p>
               </div>
-            ) : (
-              <div className="mt-4 overflow-x-auto">
-                <table className="min-w-full text-left text-sm">
-                  <thead className="bg-[#0b0b0b] text-xs uppercase tracking-wide text-slate-300 dark:bg-[#171717]/60 dark:text-slate-300">
-                    <tr>
-                      <th className="px-4 py-3 font-semibold">File</th>
-                      <th className="px-4 py-3 font-semibold">Submitted</th>
-                      <th className="px-4 py-3 font-semibold">Status</th>
-                      <th className="px-4 py-3 font-semibold">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-white/[0.08] dark:divide-slate-800">
-                    {profileRows.map((p) => {
-                      const id = getId(p);
-                      const fileName =
-                        p.fileName || p.originalName || p.name || p.s3Key || `Profile #${id}`;
-                      return (
-                        <tr key={id}>
-                          <td
-                            className="max-w-[280px] truncate px-4 py-3 font-medium text-slate-100 dark:text-slate-100"
-                            title={fileName}
-                          >
-                            {fileName}
-                          </td>
-                          <td className="px-4 py-3 text-slate-200 dark:text-slate-300">
-                            {formatDate(p.submittedAt || p.createdAt, { withTime: true })}
-                          </td>
-                          <td className="px-4 py-3">
-                            <StatusBadge label={p.status || "SUBMITTED"} />
-                          </td>
-                          <td className="px-4 py-3">
-                            <div className="flex flex-wrap gap-2">
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => handlePreview(id)}
-                                disabled={previewingId === id}
-                              >
-                                {previewingId === id ? "Opening..." : "Preview"}
-                              </Button>
-                              {canDeleteProfiles ? <Button
-                                variant="outline"
-                                size="sm"
-                                className="border-red-200 text-red-700 hover:bg-red-50 dark:border-red-900 dark:text-red-300"
-                                onClick={() => setDeleteId(id)}
-                              >
-                                Delete
-                              </Button> : null}
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+
+              {selectedFiles.length > 0 ? (
+                <div className="mt-4 space-y-2" role="status" aria-live="polite">
+                  <h3 className="text-sm font-semibold text-slate-100 dark:text-slate-100">
+                    Selected files
+                  </h3>
+                  <ul className="divide-y divide-white/[0.08] rounded-lg border border-white/[0.08] dark:divide-slate-800 dark:border-slate-800">
+                    {selectedFiles.map((f) => (
+                      <li
+                        key={`${f.name}-${f.size}`}
+                        className="flex flex-col gap-2 p-3 sm:flex-row sm:items-center sm:justify-between"
+                      >
+                        <div className="min-w-0">
+                          <p className="truncate text-sm font-medium text-slate-100 dark:text-slate-100">
+                            {f.name}
+                          </p>
+                          <p className="text-xs text-slate-500 dark:text-slate-400">
+                            {f.type || "unknown type"} · {formatBytes(f.size)} ·{" "}
+                            {fileStatus[f.name] || "ready"}
+                          </p>
+                        </div>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={() => removeSelected(f.name, f.size)}
+                          disabled={uploadLoading}
+                        >
+                          Remove
+                        </Button>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="flex flex-wrap items-center gap-3 pt-2">
+                    <Button
+                      onClick={handleSubmit}
+                      disabled={
+                        uploadLoading || selectedFiles.length === 0 || opening?.status !== "OPEN"
+                      }
+                      className="bg-lime-300 hover:bg-lime-200 text-black"
+                    >
+                      {uploadLoading ? "Submitting..." : "Submit profiles"}
+                    </Button>
+                    {uploadError ? (
+                      <span className="text-sm text-red-600 dark:text-red-400">{uploadError}</span>
+                    ) : null}
+                  </div>
+                </div>
+              ) : null}
+            </section>
+          ) : null}
+
+          {canViewProfiles ? (
+            <section className="rounded-xl border border-white/[0.08] bg-[#0b0b0b] p-5 shadow-sm dark:border-slate-800 dark:bg-[#0b0b0b]/40 sm:p-6">
+              <div className="flex items-center justify-between gap-3">
+                <h2 className="text-lg font-semibold text-slate-100 dark:text-slate-100">
+                  My uploaded profiles
+                </h2>
+                <span className="text-sm text-slate-500 dark:text-slate-400">
+                  {profileRows.length} file(s)
+                </span>
               </div>
-            )}
-            <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
-              Only your own uploads are shown. AI scores and explanations are visible to the hiring
-              manager only.
-            </p>
-          </section> : null}
+              {profileRows.length === 0 ? (
+                <div className="mt-4 rounded-lg border border-dashed border-slate-700 p-8 text-center dark:border-slate-700">
+                  <p className="text-sm font-medium text-slate-100 dark:text-slate-100">
+                    No profiles uploaded yet
+                  </p>
+                  <p className="mt-1 text-sm text-slate-300 dark:text-slate-400">
+                    Upload and submit candidate resumes to get started.
+                  </p>
+                </div>
+              ) : (
+                <div className="mt-4 overflow-x-auto">
+                  <table className="min-w-full text-left text-sm">
+                    <thead className="bg-[#0b0b0b] text-xs uppercase tracking-wide text-slate-300 dark:bg-[#171717]/60 dark:text-slate-300">
+                      <tr>
+                        <th className="px-4 py-3 font-semibold">File</th>
+                        <th className="px-4 py-3 font-semibold">Submitted</th>
+                        <th className="px-4 py-3 font-semibold">Status</th>
+                        <th className="px-4 py-3 font-semibold">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-white/[0.08] dark:divide-slate-800">
+                      {profileRows.map((p) => {
+                        const id = getId(p);
+                        const fileName =
+                          p.fileName || p.originalName || p.name || p.s3Key || `Profile #${id}`;
+                        return (
+                          <tr key={id}>
+                            <td
+                              className="max-w-[280px] truncate px-4 py-3 font-medium text-slate-100 dark:text-slate-100"
+                              title={fileName}
+                            >
+                              {fileName}
+                            </td>
+                            <td className="px-4 py-3 text-slate-200 dark:text-slate-300">
+                              {formatDate(p.submittedAt || p.createdAt, { withTime: true })}
+                            </td>
+                            <td className="px-4 py-3">
+                              <StatusBadge label={p.status || "SUBMITTED"} />
+                            </td>
+                            <td className="px-4 py-3">
+                              <div className="flex flex-wrap gap-2">
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => handlePreview(id)}
+                                  disabled={previewingId === id}
+                                >
+                                  {previewingId === id ? "Opening..." : "Preview"}
+                                </Button>
+                                {canDeleteProfiles ? (
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    className="border-red-200 text-red-700 hover:bg-red-50 dark:border-red-900 dark:text-red-300"
+                                    onClick={() => setDeleteId(id)}
+                                  >
+                                    Delete
+                                  </Button>
+                                ) : null}
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+              <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
+                Only your own uploads are shown. AI scores and explanations are visible to the
+                hiring manager only.
+              </p>
+            </section>
+          ) : null}
         </div>
       ) : null}
 
-      <AlertDialog open={canDeleteProfiles && deleteId != null} onOpenChange={(open) => !open && setDeleteId(null)}>
+      <AlertDialog
+        open={canDeleteProfiles && deleteId != null}
+        onOpenChange={(open) => !open && setDeleteId(null)}
+      >
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Remove this profile?</AlertDialogTitle>

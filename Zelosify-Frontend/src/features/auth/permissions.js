@@ -76,8 +76,10 @@ export function canAssignHiringManagerToJob(user) {
 }
 
 export function canAssignRecruiterToJob(user) {
-  return canAssignHiringManagerToJob(user) ||
-    (user?.role === "HIRING_MANAGER" && hasPermission(user, "JOBS_CREATE"));
+  return (
+    canAssignHiringManagerToJob(user) ||
+    (user?.role === "HIRING_MANAGER" && hasPermission(user, "JOBS_CREATE"))
+  );
 }
 
 export function canManageJobTeam(user) {

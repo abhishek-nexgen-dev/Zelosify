@@ -62,9 +62,7 @@ function hiringManagerName(manager) {
 
 export default function JobDetailsPage({ jobId }) {
   const { user } = useAuth();
-  const canManageJobsRole = ["ADMIN", "RECRUITER", "HIRING_MANAGER"].includes(
-    user?.role
-  );
+  const canManageJobsRole = ["ADMIN", "RECRUITER", "HIRING_MANAGER"].includes(user?.role);
   const canViewJobs = canManageJobsRole && hasPermission(user, "JOBS_VIEW");
   const canUpdateJobs = canManageJobsRole && hasPermission(user, "JOBS_UPDATE");
   const canViewCandidates =
@@ -677,7 +675,7 @@ function CandidatesPanel({ jobId }) {
                 setPage(1);
                 setStatusFilter(filter.value);
               }}
-                  className={`min-h-10 rounded-full border px-4 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-300 ${selected ? "border-lime-300/30 bg-lime-300/10 text-lime-100" : "border-white/[0.08] bg-[#0b0b0b] text-slate-300 hover:border-white/20 hover:bg-[#151515] hover:text-white"}`}
+              className={`min-h-10 rounded-full border px-4 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-300 ${selected ? "border-lime-300/30 bg-lime-300/10 text-lime-100" : "border-white/[0.08] bg-[#0b0b0b] text-slate-300 hover:border-white/20 hover:bg-[#151515] hover:text-white"}`}
             >
               {filter.label}
             </button>

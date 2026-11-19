@@ -72,19 +72,19 @@ Use existing design tokens if available. Otherwise create **one central token fi
 
 Prefer existing components. If absent, create small shared components for:
 
-| Component      | Design rule                                                                        |
-| -------------- | ---------------------------------------------------------------------------------- |
-| `PageHeader`   | Title, one-line description, optional action aligned right on desktop              |
+| Component      | Design rule                                                                                         |
+| -------------- | --------------------------------------------------------------------------------------------------- |
+| `PageHeader`   | Title, one-line description, optional action aligned right on desktop                               |
 | `Button`       | Primary lime with black text, secondary outlined/neutral, destructive rose; disabled/loading states |
-| `Card`         | Charcoal surface, subtle border, consistent padding and radius                     |
-| `DataTable`    | Clear column labels, subtle row dividers, horizontal scroll on narrow screens      |
-| `StatusBadge`  | Label + soft semantic background; not color alone                                  |
-| `FormField`    | Visible label, helper/error text, consistent focus ring                            |
-| `FileDropzone` | Dashed border, keyboard-operable upload, supported formats, progress and errors    |
-| `Dialog`       | Confirm destructive actions; focus management and accessible close                 |
-| `Skeleton`     | Match final component dimensions to avoid layout jumps                             |
-| `EmptyState`   | Explain why there is no data and offer an appropriate next action                  |
-| `ErrorState`   | Plain-language error and retry where applicable                                    |
+| `Card`         | Charcoal surface, subtle border, consistent padding and radius                                      |
+| `DataTable`    | Clear column labels, subtle row dividers, horizontal scroll on narrow screens                       |
+| `StatusBadge`  | Label + soft semantic background; not color alone                                                   |
+| `FormField`    | Visible label, helper/error text, consistent focus ring                                             |
+| `FileDropzone` | Dashed border, keyboard-operable upload, supported formats, progress and errors                     |
+| `Dialog`       | Confirm destructive actions; focus management and accessible close                                  |
+| `Skeleton`     | Match final component dimensions to avoid layout jumps                                              |
+| `EmptyState`   | Explain why there is no data and offer an appropriate next action                                   |
+| `ErrorState`   | Plain-language error and retry where applicable                                                     |
 
 Do not create an oversized design-system framework for a single feature or route group.
 

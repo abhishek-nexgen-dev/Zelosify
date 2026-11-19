@@ -65,25 +65,25 @@ export default function LandingNavbar() {
           <nav aria-label="Main navigation" className="hidden shrink-0 items-center gap-1 lg:flex">
             <Link
               href="/#about"
-                className="whitespace-nowrap rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-300 transition hover:bg-[#111111] hover:text-slate-50 dark:text-slate-300 dark:hover:bg-[#171717] dark:hover:text-white"
+              className="whitespace-nowrap rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-300 transition hover:bg-[#111111] hover:text-slate-50 dark:text-slate-300 dark:hover:bg-[#171717] dark:hover:text-white"
             >
               About
             </Link>
             <Link
               href="/jobs"
-                className="whitespace-nowrap rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-300 transition hover:bg-[#111111] hover:text-slate-50 dark:text-slate-300 dark:hover:bg-[#171717] dark:hover:text-white"
+              className="whitespace-nowrap rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-300 transition hover:bg-[#111111] hover:text-slate-50 dark:text-slate-300 dark:hover:bg-[#171717] dark:hover:text-white"
             >
               Find jobs
             </Link>
             <Link
               href="/#platform"
-                className="whitespace-nowrap rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-300 transition hover:bg-[#111111] hover:text-slate-50 dark:text-slate-300 dark:hover:bg-[#171717] dark:hover:text-white"
+              className="whitespace-nowrap rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-300 transition hover:bg-[#111111] hover:text-slate-50 dark:text-slate-300 dark:hover:bg-[#171717] dark:hover:text-white"
             >
               Platform
             </Link>
             <Link
               href="/#how-it-works"
-                className="whitespace-nowrap rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-300 transition hover:bg-[#111111] hover:text-slate-50 dark:text-slate-300 dark:hover:bg-[#171717] dark:hover:text-white"
+              className="whitespace-nowrap rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-300 transition hover:bg-[#111111] hover:text-slate-50 dark:text-slate-300 dark:hover:bg-[#171717] dark:hover:text-white"
             >
               How It Works
             </Link>

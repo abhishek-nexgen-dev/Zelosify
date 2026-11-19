@@ -20,22 +20,37 @@ test("permission checks use the authenticated user's stored permission array", (
   );
   assert.equal(hasPermission({ role: "ADMIN", permissions: [] }, "JOBS_CREATE"), false);
   assert.equal(
-    hasPermission({ role: "IT_VENDOR", permissions: ["JOBS_VIEW", "CANDIDATES_VIEW"] }, "CANDIDATES_VIEW"),
+    hasPermission(
+      { role: "IT_VENDOR", permissions: ["JOBS_VIEW", "CANDIDATES_VIEW"] },
+      "CANDIDATES_VIEW"
+    ),
     false
   );
   assert.equal(
-    hasPermission({ role: "HIRING_MANAGER", permissions: ["JOBS_VIEW", "JOBS_UPDATE"] }, "JOBS_UPDATE"),
+    hasPermission(
+      { role: "HIRING_MANAGER", permissions: ["JOBS_VIEW", "JOBS_UPDATE"] },
+      "JOBS_UPDATE"
+    ),
     false
   );
   assert.equal(
-    hasPermission({ role: "HIRING_MANAGER", permissions: ["JOBS_VIEW", "JOBS_CREATE"] }, "JOBS_CREATE"),
+    hasPermission(
+      { role: "HIRING_MANAGER", permissions: ["JOBS_VIEW", "JOBS_CREATE"] },
+      "JOBS_CREATE"
+    ),
     true
   );
   assert.equal(
-    hasPermission({ role: "CANDIDATE", permissions: ["CANDIDATES_VIEW", "JOBS_CREATE"] }, "CANDIDATES_VIEW"),
+    hasPermission(
+      { role: "CANDIDATE", permissions: ["CANDIDATES_VIEW", "JOBS_CREATE"] },
+      "CANDIDATES_VIEW"
+    ),
     false
   );
-  assert.equal(hasPermission({ role: "UNKNOWN_ROLE", permissions: ["JOBS_VIEW"] }, "JOBS_VIEW"), false);
+  assert.equal(
+    hasPermission({ role: "UNKNOWN_ROLE", permissions: ["JOBS_VIEW"] }, "JOBS_VIEW"),
+    false
+  );
 });
 
 test("only admins can open the permission management page", () => {
@@ -52,7 +67,10 @@ test("team creation options are limited to admin grants", () => {
     "HIRING_MANAGER",
     "IT_VENDOR",
   ]);
-  assert.deepEqual(getCreatableTeamRoles({ role: "IT_VENDOR", permissions: teamCreationPermission }), []);
+  assert.deepEqual(
+    getCreatableTeamRoles({ role: "IT_VENDOR", permissions: teamCreationPermission }),
+    []
+  );
   assert.deepEqual(
     getCreatableTeamRoles({ role: "HIRING_MANAGER", permissions: teamCreationPermission }),
     []

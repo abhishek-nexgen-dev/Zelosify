@@ -84,10 +84,8 @@ function useVirtualRows(rows, containerRef) {
   const start = useMemo(() => {
     const threshold = Math.max(0, scrollTop - ESTIMATED_ROW_HEIGHT);
     let index = 0;
-    while (
-      index < rows.length - 1 &&
-      layout.offsets[index] + layout.rowHeights[index] < threshold
-    ) index += 1;
+    while (index < rows.length - 1 && layout.offsets[index] + layout.rowHeights[index] < threshold)
+      index += 1;
     return index;
   }, [layout, rows.length, scrollTop]);
   const end = useMemo(() => {

@@ -141,10 +141,7 @@ function renderBlocks(markdown) {
       while (index < lines.length && /^\s*>/.test(lines[index]))
         quoteLines.push(lines[index++].replace(/^\s*>\s?/, ""));
       blocks.push(
-        <blockquote
-          key={key}
-          className="border-l-2 border-lime-300/70 pl-4 text-slate-300"
-        >
+        <blockquote key={key} className="border-l-2 border-lime-300/70 pl-4 text-slate-300">
           {renderBlocks(quoteLines.join("\n"))}
         </blockquote>
       );

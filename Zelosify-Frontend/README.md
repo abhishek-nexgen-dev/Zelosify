@@ -29,14 +29,14 @@ The app uses the shared Axios client with `withCredentials: true` and the `/api/
 
 The existing frontend API modules are connected to the backend routes used by the user-owned `FastApi.yml` collection:
 
-| Flow                                            | Frontend API module or flow                                    | Backend route                                                                                                  |
-| ----------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| Password login and TOTP                         | `redux/features/Auth/authSlice.js`                             | `POST /auth/login`, `POST /auth/verify-totp`, `GET /auth/user`                                                 |
-| Shared internal dashboard                       | `features/internal-dashboard/`                                 | `GET /dashboard`                                                                                               |
-| Candidate registration and QR setup             | `pages/LandingPage/auth/RegisterPage.jsx`                      | `POST /auth/register`, `GET /auth/totp/setup/qr`, `POST /auth/verify-totp`                                     |
-| Recruiter administration                        | `features/admin/api.js`                                        | `GET/POST /admin/recruiters`                                                                                   |
-| Public job discovery and job details | `features/candidate/api.js`, `features/candidate/JobSearchPage.jsx`, `features/candidate/JobDetailsPage.jsx` | `GET /jobs?search={keyword}`, `GET /jobs/:id` |
-| Managed openings and candidates                 | `features/recruiter/api.js`                                    | `GET /jobs/managed`, `GET /jobs/managed/:id`, `POST /jobs`, `PUT/DELETE /jobs/:id`, `GET /jobs/:id/candidates` |
+| Flow                                 | Frontend API module or flow                                                                                  | Backend route                                                                                                  |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| Password login and TOTP              | `redux/features/Auth/authSlice.js`                                                                           | `POST /auth/login`, `POST /auth/verify-totp`, `GET /auth/user`                                                 |
+| Shared internal dashboard            | `features/internal-dashboard/`                                                                               | `GET /dashboard`                                                                                               |
+| Candidate registration and QR setup  | `pages/LandingPage/auth/RegisterPage.jsx`                                                                    | `POST /auth/register`, `GET /auth/totp/setup/qr`, `POST /auth/verify-totp`                                     |
+| Recruiter administration             | `features/admin/api.js`                                                                                      | `GET/POST /admin/recruiters`                                                                                   |
+| Public job discovery and job details | `features/candidate/api.js`, `features/candidate/JobSearchPage.jsx`, `features/candidate/JobDetailsPage.jsx` | `GET /jobs?search={keyword}`, `GET /jobs/:id`                                                                  |
+| Managed openings and candidates      | `features/recruiter/api.js`                                                                                  | `GET /jobs/managed`, `GET /jobs/managed/:id`, `POST /jobs`, `PUT/DELETE /jobs/:id`, `GET /jobs/:id/candidates` |
 
 The backend supports legacy auth aliases, but the frontend uses `/auth/login` and `/auth/register` to match the collection paths. The backend implementation and [API reference](../api.doc.md) define current behavior when a saved collection example is out of date. Keep `FastApi.yml` unchanged; update application code and this documentation instead.
 
@@ -44,17 +44,17 @@ The home page introduces the product and links to job discovery; job search and 
 
 ## Main routes
 
-| Route                                                                       | Purpose                                                              |
-| --------------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| `/`                                                                         | Public product introduction and entry points                         |
-| `/jobs`, `/jobs/[id]`                                                       | Public opening discovery and candidate application                   |
-| `/candidate/dashboard`, `/candidate/applications`, `/candidate/profile`     | Candidate workspace                                                  |
-| `/dashboard`                                                                | Shared internal dashboard for admin, recruiter, manager, vendor      |
-| `/vendor/openings`, `/vendor/openings/[id]`                                 | Vendor opening browse, resume submission, own profile management     |
-| `/hiring-manager/openings`, `/hiring-manager/openings/[id]`                 | Assigned openings and candidate review                               |
-| `/recruiter/jobs`, `/recruiter/jobs/[id]/applicants`, `/recruiter/jobs/new` | Tenant recruiter opening and applicant workflow                      |
-| `/admin/recruiters`                                                         | Tenant team management and permission-aware team creation |
-| `/login`, `/register`                                                       | Keycloak/TOTP login and candidate registration                       |
+| Route                                                                       | Purpose                                                          |
+| --------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `/`                                                                         | Public product introduction and entry points                     |
+| `/jobs`, `/jobs/[id]`                                                       | Public opening discovery and candidate application               |
+| `/candidate/dashboard`, `/candidate/applications`, `/candidate/profile`     | Candidate workspace                                              |
+| `/dashboard`                                                                | Shared internal dashboard for admin, recruiter, manager, vendor  |
+| `/vendor/openings`, `/vendor/openings/[id]`                                 | Vendor opening browse, resume submission, own profile management |
+| `/hiring-manager/openings`, `/hiring-manager/openings/[id]`                 | Assigned openings and candidate review                           |
+| `/recruiter/jobs`, `/recruiter/jobs/[id]/applicants`, `/recruiter/jobs/new` | Tenant recruiter opening and applicant workflow                  |
+| `/admin/recruiters`                                                         | Tenant team management and permission-aware team creation        |
+| `/login`, `/register`                                                       | Keycloak/TOTP login and candidate registration                   |
 
 Route protection is for navigation and user experience; backend authorization is authoritative. Vendor pages must not render recommendation details.
 

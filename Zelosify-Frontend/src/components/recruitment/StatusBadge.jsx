@@ -7,8 +7,7 @@ const styles = {
     "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800",
   "Not Recommended":
     "bg-red-50 text-red-700 border-red-200 dark:bg-red-950/40 dark:text-red-300 dark:border-red-800",
-  Processing:
-    "bg-lime-400/10 text-lime-200 border-lime-300/15",
+  Processing: "bg-lime-400/10 text-lime-200 border-lime-300/15",
   Failed:
     "bg-red-50 text-red-700 border-red-200 dark:bg-red-950/40 dark:text-red-300 dark:border-red-800",
   Pending:

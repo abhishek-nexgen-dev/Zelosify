@@ -119,9 +119,7 @@ function MobileJobCard({ job, canViewCandidates }) {
 
 export default function RecruiterJobsPage() {
   const { user } = useAuth();
-  const canManageJobsRole = ["ADMIN", "RECRUITER"].includes(
-    user?.role
-  );
+  const canManageJobsRole = ["ADMIN", "RECRUITER"].includes(user?.role);
   const canViewJobs = canManageJobsRole && hasPermission(user, "JOBS_VIEW");
   const canCreateJobs = canManageJobsRole && hasPermission(user, "JOBS_CREATE");
   const canViewCandidates =

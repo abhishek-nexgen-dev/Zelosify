@@ -4,22 +4,22 @@ This guide describes current frontend routes and their API integrations. It is n
 
 ## User journeys and page/API map
 
-| User             | Page                              | UI purpose                                                     | Main API                                                                                         |
-| ---------------- | --------------------------------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| Public           | `/`                               | Public product introduction and links to candidate and hiring-team journeys | None required                                                                              |
-| Public           | `/jobs`                           | Search and paginate open jobs                                  | `GET /jobs?page=&limit=&search=&location=`                                                       |
-| Public/candidate | `/jobs/[id]`                      | Job details; candidate resume upload and apply                 | `GET /jobs/:id`, multipart `POST /jobs/:id/apply` |
-| Candidate        | `/candidate/dashboard`            | Application overview and recent applications                   | `GET /candidate/applications`                                                                    |
-| Candidate        | `/candidate/applications`         | Application status and resume preview/replacement              | `GET /candidate/applications`, `PUT /candidate/applications/:id/resume`                          |
-| Candidate        | `/candidate/profile`              | Read-only authenticated account profile                        | `GET /auth/user`                                                                                 |
-| Vendor           | `/vendor/openings`                | Tenant opening list and pagination                             | `GET /vendor/openings?page=&limit=&query=&location=&contractType=`                               |
-| Vendor           | `/vendor/openings/[id]`           | Opening details, multi-file upload, own profile preview/delete | `GET /vendor/openings/:id`, presign/PUT/submit, preview, delete                                  |
-| Hiring manager   | `/hiring-manager/openings`        | Assigned openings                                              | `GET /jobs/managed?page=&limit=`                                                                 |
-| Hiring manager   | `/hiring-manager/openings/[id]`   | Candidate screening and decisions                              | `GET /jobs/:id/candidates?page=&limit=`, `POST /candidates/:id/{shortlist,reject}`               |
-| Recruiter        | `/recruiter/jobs`                 | Tenant openings; create, edit, close                           | `GET /jobs/managed`, `POST /jobs`, `PUT /jobs/:id`, `DELETE /jobs/:id`                           |
-| Recruiter        | `/recruiter/jobs/[id]/applicants` | Candidate applications and decisions                           | `GET /jobs/:id/candidates`, shortlist/reject                                                     |
-| Tenant admin     | `/admin/recruiters`               | Tenant recruiter/manager directory and recruiter setup         | `GET /admin/recruiters`, `POST /admin/recruiters`                                                |
-| Auth             | `/login`, `/register`             | Login/TOTP and candidate signup                                | `/auth/login`, `/auth/verify-totp`, `/auth/register`                                             |
+| User             | Page                              | UI purpose                                                                  | Main API                                                                           |
+| ---------------- | --------------------------------- | --------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Public           | `/`                               | Public product introduction and links to candidate and hiring-team journeys | None required                                                                      |
+| Public           | `/jobs`                           | Search and paginate open jobs                                               | `GET /jobs?page=&limit=&search=&location=`                                         |
+| Public/candidate | `/jobs/[id]`                      | Job details; candidate resume upload and apply                              | `GET /jobs/:id`, multipart `POST /jobs/:id/apply`                                  |
+| Candidate        | `/candidate/dashboard`            | Application overview and recent applications                                | `GET /candidate/applications`                                                      |
+| Candidate        | `/candidate/applications`         | Application status and resume preview/replacement                           | `GET /candidate/applications`, `PUT /candidate/applications/:id/resume`            |
+| Candidate        | `/candidate/profile`              | Read-only authenticated account profile                                     | `GET /auth/user`                                                                   |
+| Vendor           | `/vendor/openings`                | Tenant opening list and pagination                                          | `GET /vendor/openings?page=&limit=&query=&location=&contractType=`                 |
+| Vendor           | `/vendor/openings/[id]`           | Opening details, multi-file upload, own profile preview/delete              | `GET /vendor/openings/:id`, presign/PUT/submit, preview, delete                    |
+| Hiring manager   | `/hiring-manager/openings`        | Assigned openings                                                           | `GET /jobs/managed?page=&limit=`                                                   |
+| Hiring manager   | `/hiring-manager/openings/[id]`   | Candidate screening and decisions                                           | `GET /jobs/:id/candidates?page=&limit=`, `POST /candidates/:id/{shortlist,reject}` |
+| Recruiter        | `/recruiter/jobs`                 | Tenant openings; create, edit, close                                        | `GET /jobs/managed`, `POST /jobs`, `PUT /jobs/:id`, `DELETE /jobs/:id`             |
+| Recruiter        | `/recruiter/jobs/[id]/applicants` | Candidate applications and decisions                                        | `GET /jobs/:id/candidates`, shortlist/reject                                       |
+| Tenant admin     | `/admin/recruiters`               | Tenant recruiter/manager directory and recruiter setup                      | `GET /admin/recruiters`, `POST /admin/recruiters`                                  |
+| Auth             | `/login`, `/register`             | Login/TOTP and candidate signup                                             | `/auth/login`, `/auth/verify-totp`, `/auth/register`                               |
 
 Every route and exact request/response schema is documented in `api.doc.md`.
 

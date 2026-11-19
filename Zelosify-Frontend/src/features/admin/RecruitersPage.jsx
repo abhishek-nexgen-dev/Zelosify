@@ -421,7 +421,8 @@ export default function RecruitersPage() {
                         <td className="px-5 py-4">
                           {(user.role !== "HIRING_MANAGER" || person.role === "RECRUITER") &&
                           person.id !== user.id &&
-                          canDeleteTeamMember && person.role !== "IT_VENDOR" ? (
+                          canDeleteTeamMember &&
+                          person.role !== "IT_VENDOR" ? (
                             pendingDeleteId === person.id ? (
                               <span className="inline-flex items-center gap-2">
                                 <button

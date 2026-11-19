@@ -330,7 +330,9 @@ export default function ApplicationScorePage({ applicationId }) {
                       </span>
                       <div>
                         <h2 className="font-semibold text-white">Recommendation reason</h2>
-                        <p className="mt-0.5 text-xs text-slate-500">Why this match score was assigned</p>
+                        <p className="mt-0.5 text-xs text-slate-500">
+                          Why this match score was assigned
+                        </p>
                       </div>
                     </div>
                     <div className="mt-5">

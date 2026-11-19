@@ -123,9 +123,8 @@ export default function HomePage() {
                 <span className="text-lime-300"> forward.</span>
               </h1>
               <p className="mt-6 max-w-xl text-base leading-7 text-neutral-400 sm:text-lg sm:leading-8">
-                Explore open roles, apply with your resume, and follow your
-                progress. Zelosify gives candidates and hiring teams a clear
-                place to move each step forward.
+                Explore open roles, apply with your resume, and follow your progress. Zelosify gives
+                candidates and hiring teams a clear place to move each step forward.
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -161,7 +160,10 @@ export default function HomePage() {
             </div>
 
             <div className="relative mx-auto w-full max-w-3xl lg:ml-auto">
-              <div className="pointer-events-none absolute -inset-4 -z-10 rounded-[2rem] border border-lime-300/[0.06] sm:-inset-5" aria-hidden="true" />
+              <div
+                className="pointer-events-none absolute -inset-4 -z-10 rounded-[2rem] border border-lime-300/[0.06] sm:-inset-5"
+                aria-hidden="true"
+              />
               <div className="relative aspect-[1.35/1] overflow-hidden rounded-2xl border border-white/[0.1] bg-[#111111] shadow-[0_30px_100px_-45px_rgba(0,0,0,0.9)] sm:rounded-3xl">
                 <Image
                   src="/assets/images/career-team-hero.png"
@@ -171,7 +173,10 @@ export default function HomePage() {
                   sizes="(max-width: 1024px) 94vw, 56vw"
                   className="object-cover object-center"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/5 to-black/10" aria-hidden="true" />
+                <div
+                  className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/5 to-black/10"
+                  aria-hidden="true"
+                />
                 <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7 lg:p-8">
                   <div className="flex items-end justify-between gap-4">
                     <div className="max-w-sm">
@@ -195,7 +200,9 @@ export default function HomePage() {
                 </span>
                 <div>
                   <p className="text-xs font-semibold text-white">One focused workspace</p>
-                  <p className="mt-0.5 text-[10px] text-neutral-400">For candidates and hiring teams</p>
+                  <p className="mt-0.5 text-[10px] text-neutral-400">
+                    For candidates and hiring teams
+                  </p>
                 </div>
               </div>
             </div>
@@ -205,7 +212,11 @@ export default function HomePage() {
             {[
               { icon: Search, title: "Explore", text: "Search roles that fit your goals." },
               { icon: FileCheck2, title: "Apply", text: "Share your experience with ease." },
-              { icon: ClipboardCheck, title: "Follow through", text: "Return to updates when you need them." },
+              {
+                icon: ClipboardCheck,
+                title: "Follow through",
+                text: "Return to updates when you need them.",
+              },
             ].map(({ icon: Icon, title, text }) => (
               <div
                 key={title}
@@ -223,7 +234,10 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section id="platform" className="scroll-mt-24 border-b border-white/[0.06] bg-[#080808] py-16 sm:py-20 lg:py-24">
+        <section
+          id="platform"
+          className="scroll-mt-24 border-b border-white/[0.06] bg-[#080808] py-16 sm:py-20 lg:py-24"
+        >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
             <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
               <SectionTitle
@@ -231,8 +245,8 @@ export default function HomePage() {
                 title="One clear place for every next step."
               />
               <p className="max-w-xl text-sm leading-7 text-neutral-400 sm:text-base lg:justify-self-end">
-                Whether you are searching for a role or building a team, keep
-                important details and next steps easy to find.
+                Whether you are searching for a role or building a team, keep important details and
+                next steps easy to find.
               </p>
             </div>
 
@@ -246,10 +260,16 @@ export default function HomePage() {
                     <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-lime-300/10 bg-lime-300/[0.06] text-lime-200">
                       <Icon className="h-5 w-5" aria-hidden="true" />
                     </span>
-                    <span className="text-xs font-medium uppercase tracking-[0.13em] text-neutral-500">{label}</span>
+                    <span className="text-xs font-medium uppercase tracking-[0.13em] text-neutral-500">
+                      {label}
+                    </span>
                   </div>
-                  <h3 className="mt-7 text-2xl font-semibold tracking-tight text-white sm:text-[1.7rem]">{title}</h3>
-                  <p className="mt-3 max-w-xl text-sm leading-7 text-neutral-400 sm:text-base">{description}</p>
+                  <h3 className="mt-7 text-2xl font-semibold tracking-tight text-white sm:text-[1.7rem]">
+                    {title}
+                  </h3>
+                  <p className="mt-3 max-w-xl text-sm leading-7 text-neutral-400 sm:text-base">
+                    {description}
+                  </p>
                   <Link
                     href={href}
                     className="mt-7 inline-flex min-h-10 items-center gap-2 text-sm font-semibold text-lime-200 transition group-hover:gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-200"
@@ -263,27 +283,32 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section id="how-it-works" className="scroll-mt-24 border-b border-white/[0.06] bg-[#050505] py-16 sm:py-20 lg:py-24">
+        <section
+          id="how-it-works"
+          className="scroll-mt-24 border-b border-white/[0.06] bg-[#050505] py-16 sm:py-20 lg:py-24"
+        >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
             <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-              <SectionTitle
-                eyebrow="How it works"
-                title="Keep your next steps simple."
-              />
+              <SectionTitle eyebrow="How it works" title="Keep your next steps simple." />
               <p className="max-w-lg text-sm leading-7 text-neutral-400 sm:text-base">
-                Start with a role that interests you, then keep your application
-                activity in one place.
+                Start with a role that interests you, then keep your application activity in one
+                place.
               </p>
             </div>
 
             <div className="mt-9 grid gap-3 md:mt-12 md:grid-cols-3">
               {steps.map(({ number, icon: Icon, title, description }) => (
-                <article key={number} className="rounded-xl border border-white/[0.07] bg-[#0b0b0b] p-5 sm:p-6">
+                <article
+                  key={number}
+                  className="rounded-xl border border-white/[0.07] bg-[#0b0b0b] p-5 sm:p-6"
+                >
                   <div className="flex items-center justify-between">
                     <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#141414] text-lime-200">
                       <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
                     </span>
-                    <span className="text-xs font-semibold tracking-[0.16em] text-neutral-500">{number}</span>
+                    <span className="text-xs font-semibold tracking-[0.16em] text-neutral-500">
+                      {number}
+                    </span>
                   </div>
                   <h3 className="mt-6 text-lg font-semibold text-white">{title}</h3>
                   <p className="mt-2 text-sm leading-6 text-neutral-400">{description}</p>
@@ -293,7 +318,10 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section id="about" className="scroll-mt-24 border-b border-white/[0.06] bg-[#080808] py-16 sm:py-20 lg:py-24">
+        <section
+          id="about"
+          className="scroll-mt-24 border-b border-white/[0.06] bg-[#080808] py-16 sm:py-20 lg:py-24"
+        >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
             <div className="max-w-2xl">
               <SectionTitle
@@ -305,7 +333,10 @@ export default function HomePage() {
 
             <div className="mt-9 grid gap-3 md:grid-cols-3 lg:mt-12 lg:gap-4">
               {perspectives.map(({ name, role, image, description }) => (
-                <article key={name} className="rounded-xl border border-white/[0.07] bg-[#0b0b0b] p-5 sm:p-6">
+                <article
+                  key={name}
+                  className="rounded-xl border border-white/[0.07] bg-[#0b0b0b] p-5 sm:p-6"
+                >
                   <div className="flex items-center gap-3">
                     <Image
                       src={image}
@@ -354,15 +385,34 @@ export default function HomePage() {
       <footer className="border-t border-white/[0.07] bg-[#050505]">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-7 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-10">
           <div className="flex items-center gap-3">
-            <Image src="/assets/logos/main-logo.png" alt="Zelosify" width={144} height={36} className="h-7 w-auto object-contain object-left" />
+            <Image
+              src="/assets/logos/main-logo.png"
+              alt="Zelosify"
+              width={144}
+              height={36}
+              className="h-7 w-auto object-contain object-left"
+            />
             <span className="hidden h-5 w-px bg-white/10 sm:block" aria-hidden="true" />
-            <p className="hidden text-xs text-neutral-500 sm:block">A clearer path between people and opportunity.</p>
+            <p className="hidden text-xs text-neutral-500 sm:block">
+              A clearer path between people and opportunity.
+            </p>
           </div>
-          <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-5 gap-y-2 text-xs font-medium text-neutral-400 sm:text-sm">
-            <Link href="/jobs" className="transition hover:text-white">Find jobs</Link>
-            <Link href="/#platform" className="transition hover:text-white">Platform</Link>
-            <Link href="/#how-it-works" className="transition hover:text-white">How it works</Link>
-            <Link href="/login" className="transition hover:text-white">Sign in</Link>
+          <nav
+            aria-label="Footer navigation"
+            className="flex flex-wrap gap-x-5 gap-y-2 text-xs font-medium text-neutral-400 sm:text-sm"
+          >
+            <Link href="/jobs" className="transition hover:text-white">
+              Find jobs
+            </Link>
+            <Link href="/#platform" className="transition hover:text-white">
+              Platform
+            </Link>
+            <Link href="/#how-it-works" className="transition hover:text-white">
+              How it works
+            </Link>
+            <Link href="/login" className="transition hover:text-white">
+              Sign in
+            </Link>
           </nav>
           <p className="text-xs text-neutral-600">© {new Date().getFullYear()} Zelosify</p>
         </div>
